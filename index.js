@@ -41,7 +41,7 @@ async function sendthemail(name,pass){
 
 app.get('/',async (req,res)=>{
     try {
-        res.send('./public/index.html')
+        res.sendFile('./public/index.html')
     } catch (error) {
         console.log(error);
         res.send("cant render the html page")
