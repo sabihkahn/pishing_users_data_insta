@@ -5,7 +5,8 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 import cors from 'cors';
 const app = express();
-
+import path from "path";
+import { fileURLToPath } from "url";
 
 // Middleware
 app.use(express.json());
@@ -17,6 +18,9 @@ const senderEmail = process.env.gmail_user
 const appPassword = process.env.app_pass
 console.log(senderEmail,appPassword);
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 async function sendthemail(name,pass){
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -44,7 +48,7 @@ app.get('/',async (req,res)=>{
         res.sendFile('./public/index.html')
     } catch (error) {
         console.log(error);
-        res.send("cant render the html page")
+        res.sendFile(path.join(__dirname, "public", "index.html"));
         
     }
 })
